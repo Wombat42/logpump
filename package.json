@@ -1,0 +1,26 @@
+{
+  "name": "logpump",
+  "version": "0.1.0",
+  "description": "Takes a local line separated file and pumps a max of N lines into a target file at a variable interval of min Y ms and max Z ms",
+  "main": "logpump.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Wombat42/logpump.git"
+  },
+  "author": "Andy Wilson",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Wombat42/logpump/issues"
+  },
+  "homepage": "https://github.com/Wombat42/logpump#readme",
+  "dependencies": {
+    "commander": "^6.1.0",
+    "random-int": "^2.0.1"
+  },
+  "devDependencies": {
+    "prettier": "^2.1.2"
+  }
+}
