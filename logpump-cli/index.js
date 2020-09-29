@@ -39,18 +39,18 @@ function myParseInt(value, dummyPrevious) {
 function main(...args) {
   const program = new commander.Command();
   program
+    .usage('[options] <in file> <out file>')
     .option('-n <number>', 'Max number of lines per write', myParseInt)
     .option('--min <number>', 'Shortest interval to write', myParseInt)
     .option('--max <number>', 'Longest interval to write', myParseInt);
   program.parse(process.argv);
-  console.log(program.opts(), program.args);
-
   const { min, max, n: maxLines } = program.opts();
 
   if (program?.args.length > 1) {
     const [inFile, outFile] = program.args;
     readWriteFile(inFile, outFile, { min, max, maxLines });
   } else {
+    console.log(program.help());
   }
 }
 
