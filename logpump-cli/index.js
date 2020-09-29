@@ -3,12 +3,13 @@ const fs = require('fs');
 const readline = require('readline');
 const randomInt = require('random-int');
 
-function sleep({ min, max }) {
+function sleep({ min = 500, max = 1000 }) {
   const time = randomInt(min, max);
   return new Promise((resolve) => setTimeout(resolve, time));
 }
 
 async function readWriteFile(inFilePath, outFilePath, throttle) {
+  const { maxLines } = throttle;
   const outFile = fs.createWriteStream(outFilePath, { flags: 'a' });
 
   const rl = readline.createInterface({
@@ -16,10 +17,15 @@ async function readWriteFile(inFilePath, outFilePath, throttle) {
     console: false,
   });
 
+  let counter = 0;
   for await (const line of rl) {
+    if (counter < 1) {
+      await sleep(throttle);
+      counter = randomInt(maxLines);
+    }
     console.log(line);
     outFile.write(line + '\n');
-    await sleep(throttle);
+    counter--;
   }
   outFile.close();
   console.log('I should be done now');
@@ -39,11 +45,11 @@ function main(...args) {
   program.parse(process.argv);
   console.log(program.opts(), program.args);
 
-  const { min = 500, max = 2000 } = program.opts();
+  const { min, max, n: maxLines } = program.opts();
 
   if (program?.args.length > 1) {
     const [inFile, outFile] = program.args;
-    readWriteFile(inFile, outFile, { min, max });
+    readWriteFile(inFile, outFile, { min, max, maxLines });
   } else {
   }
 }
