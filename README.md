@@ -10,7 +10,7 @@ I used this to load log lines into Grafana's Loki so that I could simulate what 
 
 ## Usage
 
-```bash
+```
 Usage:
 logpump [options] <file to read from> <file to write to>
 
