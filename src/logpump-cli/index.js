@@ -44,7 +44,7 @@ function main(...args) {
     .option('--min <number>', 'Shortest interval to write', myParseInt)
     .option('--max <number>', 'Longest interval to write', myParseInt);
   program.parse(process.argv);
-  const { min, max, n: maxLines } = program.opts();
+  const { min, max, n: maxLines = 1 } = program.opts();
 
   if (program?.args.length > 1) {
     const [inFile, outFile] = program.args;
